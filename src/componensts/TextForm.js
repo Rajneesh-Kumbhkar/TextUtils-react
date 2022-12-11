@@ -5,6 +5,7 @@ export default function TextForm(props) {
     // console.log("UpperCase");
     let newText = text.toUpperCase();
     setText(newText);
+    props.showAlert("sentence has been upperCase..!", "success");
   };
   const handleDownClick = () => {
     let newText = text.toLowerCase();
@@ -13,8 +14,16 @@ export default function TextForm(props) {
   const handleClearClick = () => {
     let newText = "";
     setText(newText);
+    props.showAlert("sentence has been Cleared..!", "success");
   };
 
+  const handleCopy = () => {
+    var text = document.getElementById("textArea");
+    text.select();
+    text.setSelectionRange(0, 9999);
+    navigator.clipboard.writeText(text.value);
+    props.showAlert("Copied to clipboard ", "success");
+  };
   const handleOnchange = (event) => {
     // console.log("Onchange");
     setText(event.target.value);
@@ -45,6 +54,9 @@ export default function TextForm(props) {
       <button className="btn btn-primary mx-2" onClick={handleClearClick}>
         Clear Text
       </button>
+      <button className="btn btn-primary mx-2" onClick={handleCopy}>
+        Copy Text
+      </button>
       <div
         className={`container text-${
           props.mode === "light" ? "light" : "dark"
@@ -52,7 +64,7 @@ export default function TextForm(props) {
       >
         <h2>Your Text Summery</h2>
         <p>
-          {text.split(" ").length} words and {text.length} charater
+          {text.split(" ").length - 1} words and {text.length} charater
         </p>
         <p>{(0.008 * text.split(" ").length).toFixed(3)} Minutes read </p>
         <h3>Preview</h3>
