@@ -10,6 +10,11 @@ export default function TextForm(props) {
     let newText = text.toLowerCase();
     setText(newText);
   };
+  const handleClearClick = () => {
+    let newText = "";
+    setText(newText);
+  };
+
   const handleOnchange = (event) => {
     // console.log("Onchange");
     setText(event.target.value);
@@ -17,7 +22,11 @@ export default function TextForm(props) {
   const [text, setText] = useState("");
   return (
     <>
-      <div className="conatiner mb-3 w-100">
+      <div
+        className={`conatiner mb-3 w-100 text-${
+          props.mode === "light" ? "light" : "dark"
+        }`}
+      >
         <h1>{props.heading}</h1>
         <textarea
           className="form w-100"
@@ -27,13 +36,20 @@ export default function TextForm(props) {
           value={text}
         ></textarea>
       </div>
-      <button className="btn btn-primary" onClick={handleUpClick}>
+      <button className="btn btn-primary mx-2" onClick={handleUpClick}>
         UpperCase
       </button>
-      <button className="btn btn-primary mx-3" onClick={handleDownClick}>
+      <button className="btn btn-primary mx-2" onClick={handleDownClick}>
         loverCase
       </button>
-      <div className="container">
+      <button className="btn btn-primary mx-2" onClick={handleClearClick}>
+        Clear Text
+      </button>
+      <div
+        className={`container text-${
+          props.mode === "light" ? "light" : "dark"
+        }`}
+      >
         <h2>Your Text Summery</h2>
         <p>
           {text.split(" ").length} words and {text.length} charater

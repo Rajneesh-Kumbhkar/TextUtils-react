@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 
 export default function Navbar(props) {
   return (
-    <nav className="navbar navbar-expand-lg bg-dark w-100 mx-3">
-      <div className="container">
+    <nav
+      className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode} w-100 mx-3`}
+    >
+      <div className={`container  props.mode === "light" ? "dark" : "light`}>
         <a className="navbar-brand" href="/">
           {props.title}
         </a>
@@ -22,7 +24,7 @@ export default function Navbar(props) {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="/">
+              <a className="nav-link active" href="/">
                 Home
               </a>
             </li>
@@ -67,15 +69,26 @@ export default function Navbar(props) {
             </li>
           </ul>
           <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
             <button className="btn btn-outline-success mx-2" type="submit">
               Search
             </button>
+            <div className="form-check form-switch">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                onClick={props.toggleMode}
+                id="flexSwitchCheckChecked"
+              />
+              <label
+                className={`form-check-label text-${
+                  props.mode === "light" ? "dark" : "light"
+                }`}
+                htmlFor="flexSwitchCheckChecked"
+              >
+                dark mode
+              </label>
+            </div>
           </form>
         </div>
       </div>
