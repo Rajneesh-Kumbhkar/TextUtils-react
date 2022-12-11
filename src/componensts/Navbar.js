@@ -8,7 +8,7 @@ export default function Navbar(props) {
     >
       <div className={`container  props.mode === "light" ? "dark" : "light`}>
         {/* <Link className="navbar-brand" to="/"> */}
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="#">
           {props.title}
         </a>
         <button
@@ -26,7 +26,7 @@ export default function Navbar(props) {
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               {/* <Link className="nav-link active" to="/"> */}
-              <a className="nav-link active" href="/">
+              <a className="nav-link active" href="#">
                 Home
               </a>
             </li>
