@@ -20,8 +20,8 @@ export default function TextForm(props) {
   const handleCopy = () => {
     var text = document.getElementById("textArea");
     text.select();
-    text.setSelectionRange(0, 9999);
     navigator.clipboard.writeText(text.value);
+    document.getSelection().removeAllRanges();
     props.showAlert("Copied to clipboard ", "success");
   };
   const handleOnchange = (event) => {
@@ -32,43 +32,72 @@ export default function TextForm(props) {
   return (
     <>
       <div
-        className={`conatiner mb-3 w-100 text-${
-          props.mode === "light" ? "light" : "dark"
+        className={`conatiner mb-2 my-2  w-100 text-${
+          props.mode === "light" ? "#1e1e1e" : "#f5f5f5"
         }`}
       >
         <h1>{props.heading}</h1>
         <textarea
-          className="form w-100"
+          className="form w-100 "
           id="textArea"
           rows="8"
           onChange={handleOnchange}
           value={text}
         ></textarea>
       </div>
-      <button className="btn btn-primary mx-2" onClick={handleUpClick}>
+      <button
+        disabled={text.length === 0}
+        className="btn btn-primary mx-1 my-1"
+        onClick={handleUpClick}
+      >
         UpperCase
       </button>
-      <button className="btn btn-primary mx-2" onClick={handleDownClick}>
+      <button
+        disabled={text.length === 0}
+        className="btn btn-primary mx-1 my-1"
+        onClick={handleDownClick}
+      >
         loverCase
       </button>
-      <button className="btn btn-primary mx-2" onClick={handleClearClick}>
+      <button
+        disabled={text.length === 0}
+        className="btn btn-primary mx-1 my-1"
+        onClick={handleClearClick}
+      >
         Clear Text
       </button>
-      <button className="btn btn-primary mx-2" onClick={handleCopy}>
+      <button
+        disabled={text.length === 0}
+        className="btn btn-primary mx-1 my-1"
+        onClick={handleCopy}
+      >
         Copy Text
       </button>
       <div
-        className={`container text-${
-          props.mode === "light" ? "light" : "dark"
+        className={`container mt-3 text-${
+          props.mode === "light" ? "#1e1e1e" : "#f5f5f5"
         }`}
       >
         <h2>Your Text Summery</h2>
         <p>
-          {text.split(" ").length - 1} words and {text.length} charater
+          {
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length
+          }{" "}
+          words and {text.length} character
         </p>
-        <p>{(0.008 * text.split(" ").length).toFixed(3)} Minutes read </p>
+        <p>
+          {(
+            0.008 *
+            text.split(" ").filter((element) => {
+              return element.length !== 0;
+            }).length
+          ).toFixed(3)}{" "}
+          Minutes read{" "}
+        </p>
         <h3>Preview</h3>
-        <p>{text}</p>
+        <p>{text.length > 0 ? text : "Nothing to Preview!"}</p>
       </div>
     </>
   );
